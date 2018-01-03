@@ -77,6 +77,6 @@ C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Buti
 C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\obj\Debug\CM_Video_Butik.csprojResolveAssemblyReference.cache
 C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\obj\Debug\CM_Video_Butik.dll
 C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\obj\Debug\CM_Video_Butik.pdb
+C:\Users\Turi\Documents\Visual Studio 2015\Projects\CM_Video_Butik\CM_Video_Butik\obj\Debug\CM_Video_Butik.csprojResolveAssemblyReference.cache

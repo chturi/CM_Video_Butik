@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CM_Video_Butik.Views.Contex;
 using CM_Video_Butik.Models;
 
+
 namespace CM_Video_Butik.Controllers
 {
     public class MovieController : Controller
@@ -54,19 +55,19 @@ namespace CM_Video_Butik.Controllers
         }
 
         // GET: Movie/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            return View(db.MoviesDb.Where( x => x.Title == id).FirstOrDefault());
         }
 
         // POST: Movie/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int onclick, MovieModels movie)
         {
             try
             {
                 // TODO: Add update logic here
-
+               
                 return RedirectToAction("Index");
             }
             catch
@@ -76,18 +77,23 @@ namespace CM_Video_Butik.Controllers
         }
 
         // GET: Movie/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+
+            return View(db.MoviesDb.Where(x => x.Title == id).FirstOrDefault());
         }
 
         // POST: Movie/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, MovieModels movie)
         {
             try
             {
                 // TODO: Add delete logic here
+
+                movie = db.MoviesDb.Where(x => x.Title == id).FirstOrDefault();
+                db.MoviesDb.Remove(movie);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
