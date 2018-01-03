@@ -13,8 +13,10 @@ namespace CM_Video_Butik.Models
         [Key]
         public string Title { get; set; }
         public string Genre { get; set; }
-        public int QuantityTotalStock { get; set; }
-        public int QuantityRented { get; set; }
+        public int QuantityTotalStock { get; set; } = 0;
+        public int QuantityRented { get; set; } = 0;
+
+      
 
     }
 }

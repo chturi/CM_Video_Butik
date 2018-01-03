@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CM_Video_Butik.Views.Contex;
+using CM_Video_Butik.Models;
 
 namespace CM_Video_Butik.Controllers
 {
@@ -33,11 +34,16 @@ namespace CM_Video_Butik.Controllers
 
         // POST: Movie/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(MovieModels movie)
         {
             try
             {
                 // TODO: Add insert logic here
+
+                db.MoviesDb.Add(movie);
+                db.SaveChanges();
+
+
 
                 return RedirectToAction("Index");
             }
