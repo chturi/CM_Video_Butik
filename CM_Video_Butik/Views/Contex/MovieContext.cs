@@ -10,7 +10,7 @@ namespace CM_Video_Butik.Views.Contex
     public class MovieContext : DbContext
     {
 
-        public DbSet<MovieModels> Movies { get; set; }
+        public DbSet<MovieModels> MoviesDb { get; set; }
 
 
     }

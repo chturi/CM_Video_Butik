@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CM_Video_Butik.Views.Contex;
 
 namespace CM_Video_Butik.Controllers
 {
     public class MovieController : Controller
     {
+        MovieContext db = new MovieContext();
+
         // GET: Movie
         public ActionResult Index()
         {
-            return View();
+            var movies = db.MoviesDb.ToList();
+
+            return View(movies);
         }
 
         // GET: Movie/Details/5

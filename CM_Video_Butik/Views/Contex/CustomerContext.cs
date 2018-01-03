@@ -10,7 +10,7 @@ namespace CM_Video_Butik.Views.Contex
     public class CustomerContext : DbContext
     {
 
-        public DbSet<CustomerModel> Movies { get; set; }
+        public DbSet<CustomerModel> CustomerDb { get; set; }
 
 
     }
