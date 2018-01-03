@@ -12,7 +12,6 @@ namespace CM_Video_Butik.Views.Contex
 
         public DbSet<CustomerModel> Movies { get; set; }
 
-        public int MyProperty { get; set; }
 
     }
 }
