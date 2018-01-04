@@ -77,16 +77,20 @@ namespace CM_Video_Butik.Controllers
         // GET: Customer/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+
+            return View(db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault());
         }
 
         // POST: Customer/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, CustomerModel Customer)
         {
             try
             {
                 // TODO: Add delete logic here
+                Customer = db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
+                db.CustomerDb.Remove(Customer);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
