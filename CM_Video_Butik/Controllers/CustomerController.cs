@@ -40,6 +40,9 @@ namespace CM_Video_Butik.Controllers
             try
             {
                 // TODO: Add insert logic here
+                db.CustomerDb.Add(Customer);
+                db.SaveChanges();
+
 
                 return RedirectToAction("Index");
             }

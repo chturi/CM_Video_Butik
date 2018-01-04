@@ -32,7 +32,7 @@
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.Display("Nr of rented movies")
+            @Html.DisplayFor(modelItem => item.QuantityOfMovies)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
