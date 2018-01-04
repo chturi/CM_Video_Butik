@@ -56,9 +56,9 @@ namespace CM_Video_Butik.Controllers
         }
 
         // GET: Movie/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int id)
         {
-            return View(db.MoviesDb.Where( x => x.Title == id).FirstOrDefault());
+            return View(db.MoviesDb.Where( x => x.MovieID == id).FirstOrDefault());
         }
 
         // POST: Movie/Edit/5
@@ -78,21 +78,21 @@ namespace CM_Video_Butik.Controllers
         }
 
         // GET: Movie/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int id)
         {
 
-            return View(db.MoviesDb.Where(x => x.Title == id).FirstOrDefault());
+            return View(db.MoviesDb.Where(x => x.MovieID == id).FirstOrDefault());
         }
 
         // POST: Movie/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, MovieModels movie)
+        public ActionResult Delete(int id, MovieModels movie)
         {
             try
             {
                 // TODO: Add delete logic here
 
-                movie = db.MoviesDb.Where(x => x.Title == id).FirstOrDefault();
+                movie = db.MoviesDb.Where(x => x.MovieID == id).FirstOrDefault();
                 db.MoviesDb.Remove(movie);
                 db.SaveChanges();
 
