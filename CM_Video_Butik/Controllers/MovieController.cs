@@ -63,12 +63,18 @@ namespace CM_Video_Butik.Controllers
 
         // POST: Movie/Edit/5
         [HttpPost]
-        public ActionResult Edit(int onclick, MovieModels movie)
+        public ActionResult Edit(int id, MovieModels movie)
         {
             try
             {
-                // TODO: Add update logic here
-               
+
+                var Replace = db.MoviesDb.Where(x => x.MovieID == id).FirstOrDefault();
+                Replace.QuantityTotalStock = movie.QuantityTotalStock;
+                Replace.Genre = movie.Genre;
+                db.SaveChanges();
+
+
+
                 return RedirectToAction("Index");
             }
             catch
