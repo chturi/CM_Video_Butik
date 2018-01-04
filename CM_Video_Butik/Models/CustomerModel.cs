@@ -11,7 +11,7 @@ namespace CM_Video_Butik.Models
     
     public class CustomerModel
     {
-        //Model for all costumers
+        //Model data for all costumers
         [Key]
         public string FirstName { get; set; }
         public string LastName { get; set; }

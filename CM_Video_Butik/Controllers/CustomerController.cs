@@ -35,7 +35,7 @@ namespace CM_Video_Butik.Controllers
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CustomerModel Customer)
         {
             try
             {
