@@ -43,7 +43,7 @@ namespace CM_Video_Butik.Controllers
 
                 db.MoviesDb.Add(movie);
                 db.SaveChanges();
-                System.Diagnostics.Debug.WriteLine("!MOVIEID: " + movie.MovieID);
+                //System.Diagnostics.Debug.WriteLine("!MOVIEID: " + movie.MovieID);
 
 
 
