@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Data.Entity;
+using CM_Video_Butik.Views.Contex;
 
 namespace CM_Video_Butik
 {
@@ -12,6 +14,7 @@ namespace CM_Video_Butik
     {
         protected void Application_Start()
         {
+            //Database.SetInitializer<MovieContext>(null);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

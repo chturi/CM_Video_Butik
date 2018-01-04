@@ -15,8 +15,8 @@ namespace CM_Video_Butik.Models
         public string Genre { get; set; }
         public int QuantityTotalStock { get; set; } = 0;
         public int QuantityRented { get; set; } = 0;
+        public int MovieID { get; set; }
 
-      
 
     }
 }

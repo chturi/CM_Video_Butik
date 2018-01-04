@@ -14,9 +14,10 @@ namespace CM_Video_Butik.Models
         [Key]
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int ID { get; set; }
+        public int CustomerID { get; set; }
         public int QuantityOfMovies { get; set; } = 0;
         public List<MovieModels> RentedMovies { get; set; }
+
 
 
 
