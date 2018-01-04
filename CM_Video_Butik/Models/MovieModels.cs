@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,7 @@ namespace CM_Video_Butik.Models
         public string Genre { get; set; }
         public int QuantityTotalStock { get; set; } = 0;
         public int QuantityRented { get; set; } = 0;
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MovieID { get; set; }
 
 
