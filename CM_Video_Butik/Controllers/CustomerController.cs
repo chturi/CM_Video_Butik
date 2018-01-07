@@ -122,14 +122,36 @@ namespace CM_Video_Butik.Controllers
             {
                 // TODO: Add delete logic here
                 
+                //Deleting Customers
                 Customer = db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
-                
-                    
-
-
-
                 db.CustomerDb.Remove(Customer);
                 db.SaveChanges();
+
+                try
+                {
+                    var CustomerMovies = dbCustMov.CustMovdb.Where(x => x.CusMovID.EndsWith(id.ToString())).ToList();
+
+                    foreach (var movie in CustomerMovies)
+                    {
+                        //Deleteing Movies which are stored by the customer.
+                        dbCustMov.CustMovdb.Remove(movie);
+                        dbCustMov.SaveChanges();
+
+                        //Returning Movies to stock when deleting Customers.
+                        var movieStock= dbMovie.MoviesDb.Where(x => x.MovieID == Int32.Parse(movie.CusMovID.Split('-')[0])).FirstOrDefault();
+                        movieStock.QuantityRented--;
+                        dbMovie.SaveChanges();
+
+
+                    }
+                    
+
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                    return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Index");
             }
@@ -159,9 +181,9 @@ namespace CM_Video_Butik.Controllers
                 Customer.QuantityOfMovies++;
                 db.SaveChanges();
 
-                //Adding movie to rented movelist
+                //Adding movie to rented movelist, unique ID is movie id - Customer id
                 CustomerMoviesModell CustMov = new CustomerMoviesModell();
-                CustMov.CusMovID = RentedMovie.MovieID.ToString() +"-"+ Customer.CustomerID.ToString();
+                CustMov.CusMovID = RentedMovie.MovieID.ToString() +'-'+ Customer.CustomerID.ToString();
                 CustMov.Title = RentedMovie.Title;
                 CustMov.Genre = RentedMovie.Genre;
                 CustMov.Quantity = RentedMovie.QuantityTotalStock - RentedMovie.QuantityRented;
