@@ -27,14 +27,16 @@ namespace CM_Video_Butik.Controllers
         {
             
             var Movielib = dbMovie.MoviesDb.ToList();
-
+            dbMovie.Dispose();
+            
+            ViewData["customerId"] = customerId;
             return View(Movielib);
         }
 
         public ActionResult RentReturn(int id)
         {
-            
 
+            
             return View(db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault());
         }
 
@@ -112,35 +114,49 @@ namespace CM_Video_Butik.Controllers
         }
 
         [HttpPost]
-        public ActionResult Rent(int customerId, FormCollection form)
+        public ActionResult Rent(int customerId, int movieId)
         {
             try
             {   // TODO: Add delete logic here
-                MovieModels RentedMovie = new MovieModels();
-                CustomerModel Customer = new CustomerModel();
-                int movieId = Int32.Parse(form["btnsub"]);
 
 
 
-                System.Diagnostics.Debug.WriteLine("!MOVIEID: " + movieId);
-                System.Diagnostics.Debug.WriteLine("CustomerID: " + movieId);
 
-                
-                Console.WriteLine("Value of movie ID: " + movieId);
+                System.Diagnostics.Debug.WriteLine("MOVIEID: " + movieId);
+                System.Diagnostics.Debug.WriteLine("CustomerID: " + customerId);
+
+
+
                 //Find the rented movie and customer by ID
-                RentedMovie = dbMovie.MoviesDb.Where(x => x.MovieID == movieId).FirstOrDefault();
-                Customer = db.CustomerDb.Where(x => x.CustomerID == customerId).FirstOrDefault();
+                var Customer = db.CustomerDb.Where(x => x.CustomerID == customerId).FirstOrDefault();
+
+                var RentedMovie = dbMovie.MoviesDb.Where(y => y.MovieID == movieId).FirstOrDefault();
+                
 
                 //Adds the new rented movie and save changes
 
                 Customer.RentedMovies.Add(RentedMovie);
+                Customer.QuantityOfMovies++;
+               
                 db.SaveChanges();
+
+                RentedMovie.QuantityRented++;
+
+                dbMovie.SaveChanges();
+
+                
+
+
+
+
+
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                return RedirectToAction("Index");
             }
         }
 

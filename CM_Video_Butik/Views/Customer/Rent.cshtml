@@ -20,7 +20,10 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -39,11 +42,15 @@
 
                 <div class="form-actions no-color">
                     <input type="submit" id="btnsub" value="Rent" class="btn btn-default" /> 
-                    
+                    @Html.Hidden("customerId", ViewData["customerId"])
+                    @Html.Hidden("movieId", item.MovieID)
+
+
                 </div>
             }
         </td>
     </tr>
+    }
 }
 
 </table>
