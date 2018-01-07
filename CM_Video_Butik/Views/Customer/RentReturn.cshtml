@@ -1,13 +1,15 @@
-﻿@model CM_Video_Butik.Models.CustomerModel
+﻿@model CM_Video_Butik.Models.MergeModelCustMov
+
+
 
 @{
     ViewBag.Title = "Rent/Return";
 }
 
-<h2> Rented movies by: @(Model.FirstName + " " + Model.LastName) </h2>
+<h2> Rented movies by: @Model.Customers.FirstName + " " + Model.Customers.LastName) </h2>
 
 <p>
-    @Html.ActionLink("Rent a new movie", "Rent", new {customerId = Model.CustomerID}) 
+    @Html.ActionLink("Rent a new movie", "Rent", new { customerId = Model.Customers.CustomerID })
 
 </p>
 <table class="table">
@@ -23,25 +25,25 @@
         </th>
     </tr>
 
-@if (Model.RentedMovies.ToList() != null)
-{
-    foreach (var item in Model.RentedMovies)
+    @if (Model.CustMoviesList != null)
     {
-    <tr>
-        <td>
-            @item.Title
-        </td>
-        <td>
-            @item.Genre
-        </td>
-         <td>
-            @(item.QuantityTotalStock-item.QuantityRented)
-        </td>
-        <td>
-            @Html.ActionLink("Return", "Return", new { id = item.MovieID })
-        </td>
-    </tr>
+        foreach (var item in Model.CustMoviesList)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Genre
+                </td>
+                <td>
+                    @(item.Quantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Return", "Return", new { id = item.CusMovID })
+                </td>
+            </tr>
+        }
     }
-}
 
 </table>

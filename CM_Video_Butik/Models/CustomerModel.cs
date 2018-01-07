@@ -16,7 +16,7 @@ namespace CM_Video_Butik.Models
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public int QuantityOfMovies { get; set; } = 0;
-        public List<MovieModels> RentedMovies { get; set; } = new List<MovieModels>();
+        
 
 
         //Using framework feature to generate unique increment value for each cosutomer created.

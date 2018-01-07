@@ -13,6 +13,8 @@ namespace CM_Video_Butik.Controllers
     {
         CustomerContext db = new CustomerContext();
         MovieContext dbMovie = new MovieContext();
+        CustMovContext dbCustMov = new CustMovContext();
+
 
         // GET: Customer
         public ActionResult Index()
@@ -35,9 +37,27 @@ namespace CM_Video_Butik.Controllers
 
         public ActionResult RentReturn(int id)
         {
-           var Customer= db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
+            MergeModelCustMov model = new MergeModelCustMov();
 
-            return View(Customer);
+            var Customer= db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
+
+            try
+            {
+                var CustomerMovies = dbCustMov.CustMovdb.Where(x => x.CusMovID.EndsWith(id.ToString()));
+                model.CustMoviesList = CustomerMovies.ToList();
+            }
+            catch
+            {
+                model.CustMoviesList = null;
+
+            }
+
+            model.Customers = Customer;
+           
+            
+
+
+            return View(model);
         }
 
         // GET: Customer/Create
@@ -101,15 +121,22 @@ namespace CM_Video_Butik.Controllers
             try
             {
                 // TODO: Add delete logic here
+                
                 Customer = db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
+                
+                    
+
+
+
                 db.CustomerDb.Remove(Customer);
                 db.SaveChanges();
 
-                return View("Index");
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                return RedirectToAction("Index");
             }
         }
 
@@ -117,18 +144,11 @@ namespace CM_Video_Butik.Controllers
         public ActionResult Rent(int customerId, int movieId)
         {
             try
-            {   // TODO: Add delete logic here
+            {   
 
 
-
-
-                System.Diagnostics.Debug.WriteLine("MOVIEID: " + movieId);
-                System.Diagnostics.Debug.WriteLine("CustomerID: " + customerId);
-
-
-
+         
                 //Removing a rented movie from stock.
-
                 MovieModels RentedMovie = dbMovie.MoviesDb.Where(y => y.MovieID == movieId).FirstOrDefault();
                 RentedMovie.QuantityRented++;
                 dbMovie.SaveChanges();
@@ -136,13 +156,20 @@ namespace CM_Video_Butik.Controllers
 
                 //Find the rented movie and customer by ID
                 CustomerModel Customer = db.CustomerDb.Where(x => x.CustomerID == customerId).FirstOrDefault();
+                Customer.QuantityOfMovies++;
+                db.SaveChanges();
+
+                //Adding movie to rented movelist
+                CustomerMoviesModell CustMov = new CustomerMoviesModell();
+                CustMov.CusMovID = RentedMovie.MovieID.ToString() +"-"+ Customer.CustomerID.ToString();
+                CustMov.Title = RentedMovie.Title;
+                CustMov.Genre = RentedMovie.Genre;
+                CustMov.Quantity = RentedMovie.QuantityTotalStock - RentedMovie.QuantityRented;
+                dbCustMov.CustMovdb.Add(CustMov);
+                dbCustMov.SaveChanges();
+               
+                     
                 
-                    Customer.RentedMovies.Add(RentedMovie);
-                    Customer.QuantityOfMovies++;
-                    db.SaveChanges();
-
-                   
-
 
 
                 return RedirectToAction("Index");

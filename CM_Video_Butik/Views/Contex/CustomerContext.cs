@@ -11,6 +11,7 @@ namespace CM_Video_Butik.Views.Contex
     {
 
         public DbSet<CustomerModel> CustomerDb { get; set; }
+        
 
 
     }
