@@ -27,7 +27,7 @@ namespace CM_Video_Butik.Controllers
         {
             
             var Movielib = dbMovie.MoviesDb.ToList();
-            dbMovie.Dispose();
+            
             
             ViewData["customerId"] = customerId;
             return View(Movielib);
@@ -35,9 +35,9 @@ namespace CM_Video_Butik.Controllers
 
         public ActionResult RentReturn(int id)
         {
+           var Customer= db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
 
-            
-            return View(db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault());
+            return View(Customer);
         }
 
         // GET: Customer/Create
@@ -105,7 +105,7 @@ namespace CM_Video_Butik.Controllers
                 db.CustomerDb.Remove(Customer);
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return View("Index");
             }
             catch
             {
@@ -127,27 +127,21 @@ namespace CM_Video_Butik.Controllers
 
 
 
-                //Find the rented movie and customer by ID
-                var Customer = db.CustomerDb.Where(x => x.CustomerID == customerId).FirstOrDefault();
+                //Removing a rented movie from stock.
 
-                var RentedMovie = dbMovie.MoviesDb.Where(y => y.MovieID == movieId).FirstOrDefault();
-                
-
-                //Adds the new rented movie and save changes
-
-                Customer.RentedMovies.Add(RentedMovie);
-                Customer.QuantityOfMovies++;
-               
-                db.SaveChanges();
-
+                MovieModels RentedMovie = dbMovie.MoviesDb.Where(y => y.MovieID == movieId).FirstOrDefault();
                 RentedMovie.QuantityRented++;
-
                 dbMovie.SaveChanges();
 
+
+                //Find the rented movie and customer by ID
+                CustomerModel Customer = db.CustomerDb.Where(x => x.CustomerID == customerId).FirstOrDefault();
                 
+                    Customer.RentedMovies.Add(RentedMovie);
+                    Customer.QuantityOfMovies++;
+                    db.SaveChanges();
 
-
-
+                   
 
 
 

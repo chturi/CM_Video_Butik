@@ -18,19 +18,24 @@
         <th>
             @Html.DisplayName("Genre")
         </th>
-      
+        <th>
+            @Html.DisplayName("Quantity in Stock")
+        </th>
     </tr>
 
-@if (Model.RentedMovies != null)
+@if (Model.RentedMovies.ToList() != null)
 {
     foreach (var item in Model.RentedMovies)
     {
     <tr>
         <td>
-            
+            @item.Title
         </td>
         <td>
-            
+            @item.Genre
+        </td>
+         <td>
+            @(item.QuantityTotalStock-item.QuantityRented)
         </td>
         <td>
             @Html.ActionLink("Return", "Return", new { id = item.MovieID })

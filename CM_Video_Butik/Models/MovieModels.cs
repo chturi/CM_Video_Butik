@@ -12,12 +12,12 @@ namespace CM_Video_Butik.Models
     public class MovieModels
     {
         [Key]
-        public string Title { get; set; }
-        public string Genre { get; set; }
+        public string Title { get; set; } = "";
+        public string Genre { get; set; } = "";
         public int QuantityTotalStock { get; set; } = 0;
         public int QuantityRented { get; set; } = 0;
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MovieID { get; set; }
+        public int MovieID { get; set; } = 0;
 
 
     }
