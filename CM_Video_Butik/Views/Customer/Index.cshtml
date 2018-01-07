@@ -23,7 +23,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
@@ -35,12 +36,13 @@
             @Html.DisplayFor(modelItem => item.QuantityOfMovies)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.CustomerID }) |
+            @Html.ActionLink("Rent/Return Movie", "RentReturn", new { id = item.CustomerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CustomerID }) |
            
         </td>
     </tr>
+    
 }
 
 </table>

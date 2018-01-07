@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CM_Video_Butik.Models.MovieModels>
+
+@{
+    ViewBag.Title = "Rent";
+}
+
+<h2>Rent</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Title")
+        </th>
+        <th>
+            @Html.DisplayName("Genre")
+        </th>
+        <th>
+            @Html.DisplayName("Movies in Stock")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @(item.QuantityTotalStock - item.QuantityRented)
+        </td>
+        
+        <td>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" id="btnsub" value="Rent" class="btn btn-default" /> 
+                    
+                </div>
+            }
+        </td>
+    </tr>
+}
+
+</table>

@@ -12,6 +12,7 @@ namespace CM_Video_Butik.Controllers
     public class CustomerController : Controller
     {
         CustomerContext db = new CustomerContext();
+        MovieContext dbMovie = new MovieContext();
 
         // GET: Customer
         public ActionResult Index()
@@ -22,9 +23,19 @@ namespace CM_Video_Butik.Controllers
         }
 
         // GET: Customer/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Rent(int customerId)
         {
-            return View();
+            
+            var Movielib = dbMovie.MoviesDb.ToList();
+
+            return View(Movielib);
+        }
+
+        public ActionResult RentReturn(int id)
+        {
+            
+
+            return View(db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault());
         }
 
         // GET: Customer/Create
@@ -99,5 +110,41 @@ namespace CM_Video_Butik.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult Rent(int customerId, FormCollection form)
+        {
+            try
+            {   // TODO: Add delete logic here
+                MovieModels RentedMovie = new MovieModels();
+                CustomerModel Customer = new CustomerModel();
+                int movieId = Int32.Parse(form["btnsub"]);
+
+
+
+                System.Diagnostics.Debug.WriteLine("!MOVIEID: " + movieId);
+                System.Diagnostics.Debug.WriteLine("CustomerID: " + movieId);
+
+                
+                Console.WriteLine("Value of movie ID: " + movieId);
+                //Find the rented movie and customer by ID
+                RentedMovie = dbMovie.MoviesDb.Where(x => x.MovieID == movieId).FirstOrDefault();
+                Customer = db.CustomerDb.Where(x => x.CustomerID == customerId).FirstOrDefault();
+
+                //Adds the new rented movie and save changes
+
+                Customer.RentedMovies.Add(RentedMovie);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
     }
 }

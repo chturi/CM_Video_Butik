@@ -1,0 +1,42 @@
+﻿@model CM_Video_Butik.Models.CustomerModel
+
+@{
+    ViewBag.Title = "Rent/Return";
+}
+
+<h2> Rented movies by: @(Model.FirstName + " " + Model.LastName) </h2>
+
+<p>
+    @Html.ActionLink("Rent a new movie", "Rent", new {customerId = Model.CustomerID}) 
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Title")
+        </th>
+        <th>
+            @Html.DisplayName("Genre")
+        </th>
+      
+    </tr>
+
+@if (Model.RentedMovies != null)
+{
+    foreach (var item in Model.RentedMovies)
+    {
+    <tr>
+        <td>
+            
+        </td>
+        <td>
+            
+        </td>
+        <td>
+            @Html.ActionLink("Return", "Return", new { id = item.MovieID })
+        </td>
+    </tr>
+    }
+}
+
+</table>
