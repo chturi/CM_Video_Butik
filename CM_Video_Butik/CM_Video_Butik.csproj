@@ -285,6 +285,8 @@
     <Content Include="Views\Customer\Delete.cshtml" />
     <Content Include="Views\Customer\RentReturn.cshtml" />
     <Content Include="Views\Customer\Rent.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\ReturnMovie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

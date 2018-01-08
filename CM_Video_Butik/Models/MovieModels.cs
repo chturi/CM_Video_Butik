@@ -11,13 +11,15 @@ namespace CM_Video_Butik.Models
     //Model for videos which can be rented
     public class MovieModels
     {
-        [Key]
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity),Key]
+        public int MovieID { get; set; }
+       
         public string Title { get; set; } = "";
         public string Genre { get; set; } = "";
         public int QuantityTotalStock { get; set; } = 0;
         public int QuantityRented { get; set; } = 0;
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MovieID { get; set; } = 0;
+       
 
 
     }

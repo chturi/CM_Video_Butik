@@ -11,17 +11,18 @@ namespace CM_Video_Butik.Models
     
     public class CustomerModel
     {
+        //Using framework feature to generate unique increment value for each cosutomer created.
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
+        public int CustomerID { get; set; }
         //Model data for all costumers
-        [Key]
+        
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
         public int QuantityOfMovies { get; set; } = 0;
         
 
 
-        //Using framework feature to generate unique increment value for each cosutomer created.
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CustomerID { get; set; } = 0;
+       
 
 
 

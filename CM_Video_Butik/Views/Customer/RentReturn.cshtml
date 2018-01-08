@@ -40,7 +40,7 @@
                     @(item.Quantity)
                 </td>
                 <td>
-                    @Html.ActionLink("Return", "Return", new { id = item.CusMovID })
+                    @Html.ActionLink("Return Movie", "ReturnMovie", new { CusMovID = item.CusMovID })
                 </td>
             </tr>
         }

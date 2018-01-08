@@ -1,0 +1,24 @@
+﻿@model CM_Video_Butik.Models.CustomerMoviesModell
+
+@{
+    ViewBag.Title = "Return Movie";
+}
+
+<h2>Return Movie</h2>
+@if (Model != null)
+{
+<h3>Are you sure you want to return movie: @Model.Title?</h3>
+}
+<div>
+    <h4>CustomerMoviesModell</h4>
+    <hr />
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Return Movie" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
