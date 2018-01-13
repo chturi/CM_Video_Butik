@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CM_Video_Butik.Models.MovieModels>
+﻿@model CM_Video_Butik.Models.MergeMovieRentedMovie
 
 @{
     ViewBag.Title = "Rent";
@@ -20,9 +20,9 @@
         </th>
     </tr>
 
-@if (Model != null)
+@if (Model.MoviesList != null)
 {
-    foreach (var item in Model)
+    foreach (var item in Model.MoviesList)
     {
     <tr>
         <td>
@@ -40,13 +40,23 @@
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-actions no-color">
-                    <input type="submit" id="btnsub" value="Rent" class="btn btn-default" /> 
-                    @Html.Hidden("customerId", ViewData["customerId"])
-                    @Html.Hidden("movieId", item.MovieID)
+                if (Model.RentedMovieList.Any(x => x.CusMovID.StartsWith(item.MovieID.ToString())))
+                {
+                <div>Already Rented!</div>
+                }
+
+                else
+                {
+                    <div class="form-actions no-color">
+                        <input type="submit" id="btnsub" value="Rent" class="btn btn-default" />
+                        @Html.Hidden("customerId", ViewData["customerId"])
+                        @Html.Hidden("movieId", item.MovieID)
 
 
-                </div>
+                    </div>
+                }
+
+
             }
         </td>
     </tr>
@@ -54,3 +64,4 @@
 }
 
 </table>
+<div>@Html.ActionLink("Back to Customer List","Index","Customer")</div>

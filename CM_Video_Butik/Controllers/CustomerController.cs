@@ -27,14 +27,23 @@ namespace CM_Video_Butik.Controllers
         // GET: Customer/Details/5
         public ActionResult Rent(int customerId)
         {
+            MergeMovieRentedMovie MergeMovieRented = new MergeMovieRentedMovie();
 
-            var Movielib = dbMovie.MoviesDb.ToList();
 
+
+            MergeMovieRented.MoviesList = dbMovie.MoviesDb.ToList();
+
+            if (dbCustMov.CustMovdb.Any(x => x.CusMovID.EndsWith(customerId.ToString())))
+            {
+                MergeMovieRented.RentedMovieList = dbCustMov.CustMovdb.Where(x => x.CusMovID.EndsWith(customerId.ToString())).ToList();
+            }
+
+            
 
 
 
             ViewData["customerId"] = customerId;
-            return View(Movielib);
+            return View(MergeMovieRented);
         }
 
         public ActionResult RentReturn(int id)
