@@ -31,6 +31,8 @@ namespace CM_Video_Butik.Controllers
             var Movielib = dbMovie.MoviesDb.ToList();
 
 
+
+
             ViewData["customerId"] = customerId;
             return View(Movielib);
         }
