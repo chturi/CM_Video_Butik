@@ -13,24 +13,11 @@
         <p>
             Start your renting management by adding movies to your stock or edit/add customers.
         </p>
-
-        @using (Html.BeginForm())
-        {
-
-
-            <div class="form-actions no-color">
-                <input type="submit" value="Return Movie" class="btn btn-default" /> 
-                @Html.Hidden("Movie","index","Movie")
-                
-            </div>
+        <p>
+            <a>@Html.ActionLink("Manage Movies", "index", "Movie") | @Html.ActionLink("Manage Customers", "index", "Customer")</a>
 
 
-            <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Manage Movies &raquo;</a>
-                
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Manage Customers &raquo;</a>
-            </p>
-        }
+        </p>
         
     </div>
     <div class="col-md-4">
