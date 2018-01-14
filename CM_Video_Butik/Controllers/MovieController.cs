@@ -14,9 +14,24 @@ namespace CM_Video_Butik.Controllers
         MovieContext db = new MovieContext();
 
         // GET: Movie
-        public ActionResult Index()
+        public ActionResult Index(bool sorted = false)
+
         {
-            var movies = db.MoviesDb.ToList();
+            var movies = new List<MovieModels>();
+
+            if (sorted)
+            {
+
+                movies = db.MoviesDb.OrderBy(x=> x.Genre).ToList();
+
+            }
+
+            else
+            {
+                movies = db.MoviesDb.ToList();
+            }
+
+            
 
             return View(movies);
         }
