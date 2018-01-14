@@ -17,9 +17,19 @@ namespace CM_Video_Butik.Controllers
 
 
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(bool sorted = false)
         {
-            var customer = db.CustomerDb.ToList();
+            var customer = new List<CustomerModel>();
+            System.Diagnostics.Debug.WriteLine(sorted);
+            if (sorted)
+            {
+             customer=db.CustomerDb.OrderBy(x=> x.QuantityOfMovies).ToList();
+            }
+            else
+            {
+             customer = db.CustomerDb.ToList();
+            }
+
 
             return View(customer);
         }
