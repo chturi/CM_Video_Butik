@@ -17,6 +17,8 @@ namespace CM_Video_Butik.Controllers
         public ActionResult Index(bool sorted = false)
 
         {
+           //Index actionresult, will have input sorted if user want to sort movies by genre
+
             var movies = new List<MovieModels>();
 
             if (sorted)
@@ -58,7 +60,7 @@ namespace CM_Video_Butik.Controllers
 
                 db.MoviesDb.Add(movie);
                 db.SaveChanges();
-                //System.Diagnostics.Debug.WriteLine("!MOVIEID: " + movie.MovieID);
+                
 
 
 
@@ -82,6 +84,7 @@ namespace CM_Video_Butik.Controllers
         {
             try
             {
+                //Edit function for movies in database, can edit movie depending on ID, lets edit quantity, name and Genre
 
                 var Replace = db.MoviesDb.Where(x => x.MovieID == id).FirstOrDefault();
                 Replace.QuantityTotalStock = movie.QuantityTotalStock;
@@ -101,7 +104,7 @@ namespace CM_Video_Butik.Controllers
         // GET: Movie/Delete/5
         public ActionResult Delete(int id)
         {
-
+                
             return View(db.MoviesDb.Where(x => x.MovieID == id).FirstOrDefault());
         }
 
@@ -111,8 +114,7 @@ namespace CM_Video_Butik.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                //Deletes movie from database
                 movie = db.MoviesDb.Where(x => x.MovieID == id).FirstOrDefault();
                 db.MoviesDb.Remove(movie);
                 db.SaveChanges();

@@ -11,14 +11,19 @@ namespace CM_Video_Butik.Controllers
 {
     public class CustomerController : Controller
     {
+        //Customer database
         CustomerContext db = new CustomerContext();
+        //Movie database
         MovieContext dbMovie = new MovieContext();
+        //Movie and Customer Relation database
         CustMovContext dbCustMov = new CustMovContext();
 
 
         // GET: Customer
         public ActionResult Index(bool sorted = false)
         {
+            //Index actionResults, takes input sorted if user want to sort customers depending on how many movies they rented.
+
             var customer = new List<CustomerModel>();
             System.Diagnostics.Debug.WriteLine(sorted);
             if (sorted)
@@ -39,7 +44,8 @@ namespace CM_Video_Butik.Controllers
         {
             MergeMovieRentedMovie MergeMovieRented = new MergeMovieRentedMovie();
 
-
+            //Rent action results let customer rent movies
+            //This action results take in a merged model with Movies and RentedMovies model
 
             MergeMovieRented.MoviesList = dbMovie.MoviesDb.ToList();
 
@@ -51,7 +57,7 @@ namespace CM_Video_Butik.Controllers
             
 
 
-
+            //Saves the customer ID to next View to be used for further editing.
             ViewData["customerId"] = customerId;
             return View(MergeMovieRented);
         }
@@ -59,6 +65,8 @@ namespace CM_Video_Butik.Controllers
         public ActionResult RentReturn(int id)
         {
             MergeModelCustMov model = new MergeModelCustMov();
+
+            //Merge Customer Model and Rented movie model to get customer information and the movies they rented.
 
             var Customer = db.CustomerDb.Where(x => x.CustomerID == id).FirstOrDefault();
 
@@ -70,7 +78,6 @@ namespace CM_Video_Butik.Controllers
             catch (Exception e)
             {
                 model.CustMoviesList = null;
-                System.Diagnostics.Debug.WriteLine(e.Message);
             }
 
             model.Customers = Customer;
@@ -214,7 +221,7 @@ namespace CM_Video_Butik.Controllers
                 Customer.QuantityOfMovies++;
                 db.SaveChanges();
 
-                //Adding movie to rented movelist, unique ID is movie id - Customer id
+                //Adding movie to rented movelist, unique ID is a string consisting of: "movie id-Customer id"
                 CustomerMoviesModell CustMov = new CustomerMoviesModell();
                 CustMov.CusMovID = RentedMovie.MovieID.ToString() + '-' + Customer.CustomerID.ToString();
                 CustMov.Title = RentedMovie.Title;
@@ -242,7 +249,7 @@ namespace CM_Video_Butik.Controllers
 
             try
             {
-                
+                //Acquiring Customer ID and Movie ID using Split method from rented movie which is in relational database
                 int customerID = Int32.Parse(CusMovID.Split('-')[1]);
                 int movieID = Int32.Parse(CusMovID.Split('-')[0]);
 
